@@ -5,6 +5,7 @@ class Solution {
             curr+=gain[i];
             high=Math.max(curr,high);
         }
+        
         return high;    
     }
 }
