@@ -5,17 +5,17 @@ class Solution {
             char ch=s.charAt(i);
             if(ch=='(' || ch=='[' || ch=='{'){
                 st.push(ch);
-;            }else if(st.isEmpty()){
+            }else if(st.isEmpty()){
                 return false;
             }else if(ch==')' && st.pop()!='('){
                 return false;
-            }else if(ch==']' && st.pop()!='['){
-                return false;
-            }else if(ch=='}' && st.pop()!='{'){
+            }
+            else if(ch==']' && st.pop()!='['){
                 return false;
             }
-            
-            
+            else if(ch=='}' && st.pop()!='{'){
+                return false;
+            }
         }
         return st.isEmpty();
     }
