@@ -5,13 +5,11 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            // Skip duplicates for the first element
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
 
             for (int j = i + 1; j < n; j++) {
-                // Skip duplicates for the second element
                 if (j > i + 1 && nums[j] == nums[j - 1]) {
                     continue;
                 }
