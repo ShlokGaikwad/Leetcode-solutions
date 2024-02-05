@@ -1,35 +1,34 @@
 class Solution {
+    int[] freqTree;
     public List<Integer> countSmaller(int[] nums) {
-        int len = nums.length;
-        List<Integer> ans = new ArrayList<Integer>();
-        ArrayList<Integer> arr = new ArrayList<Integer>();
-        
-        
-        for(int num: nums) arr.add(num);
-        
-        Collections.sort(arr);
-          
-        for(int i = 0; i<len; i++){
-            int index = binarySearch(arr,nums[i]);
-            ans.add(index);
-            arr.remove(index);
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        for(int g: nums) {
+            min=min<=g?min:g;
+            max=max>=g?max:g;
         }
-        
-        return ans;
+        freqTree=new int[(max-min+1)+1];
+        LinkedList<Integer> resp = new LinkedList<>();
+        for(int i=nums.length-1;i>-1;i--) {
+            resp.push(query(nums[i]-min));
+            update(nums[i]-min+1,1);
+        }
+        return resp;
     }
-    
-    public int binarySearch(ArrayList<Integer> arr, int target){
-        int start = 0;
-        int end = arr.size()-1;
-        int mid=0;
-        
-        while(start<=end){
-            mid = start + ((end - start)/2);
-            int val = arr.get(mid);
-            if(val<target) start = mid + 1;
-            else end = mid - 1;
+
+    void update(int index, int val) {
+        while(index<freqTree.length) {
+            freqTree[index]+=val;
+            index+=index&-index;
         }
-        if(arr.get(start) == target) return start;
-        return mid;
+    }
+
+    int query(int index) {
+        int sum=0;
+        while(index>0) {
+            sum+=freqTree[index];
+            index-=index&-index;
+        }
+        return sum;
     }
 }
