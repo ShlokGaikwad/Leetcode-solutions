@@ -1,1 +1,1 @@
-​
+time comp will be O(N) ans space will be O(1)
