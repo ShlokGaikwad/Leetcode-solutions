@@ -14,20 +14,17 @@
  * }
  */
 class Solution {
-    List<Integer> list=new ArrayList<>();
-    int maxLevel=0;
     public List<Integer> rightSideView(TreeNode root) {
-      // List<Integer> list=new ArrayList<>();
-		right(root,1);
-		return list;
+        List<Integer> res=new ArrayList<>();
+        right(root,res,0);
+        return res;
     }
-    public void right(TreeNode root,int level){
-       if(root==null) return;
-	    if(maxLevel<level){
-	        list.add(root.val);
-	        maxLevel=level;
-	    }
-	    right(root.right,level+1);
-	    right(root.left,level+1);
-    }  
+    public void right(TreeNode root,List<Integer> res,int depth){
+        if(root==null) return;
+            
+        if(depth==res.size()) res.add(root.val);
+        
+        right(root.right,res,depth+1);
+        right(root.left,res,depth+1);
+    }
 }
