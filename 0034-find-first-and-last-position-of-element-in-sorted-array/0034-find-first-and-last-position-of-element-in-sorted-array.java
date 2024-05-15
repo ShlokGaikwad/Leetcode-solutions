@@ -1,33 +1,31 @@
 class Solution {
-    public int[] searchRange(int[] nums, int target) {
-        int ans[]={-1,-1};
-        int start=search(nums,target,true);
-        int end=search(nums,target,false);
-        
-        ans[0]=start;
-        ans[1]=end;
-        return ans;
+    public int[] searchRange(int[] arr, int k) {
+        int n = arr.length;
+        int l = upper(arr, n, k, true);
+        int r = upper(arr, n, k, false);
+        return new int[]{l, r};
     }
-    int search(int arr[],int target,boolean find){
-        int ans=-1;
-        int start=0;
-        int end=arr.length-1;
-        while(start<=end){
-            int mid=start+(end-start)/2;
-            if(target<arr[mid]){
-                end=mid-1;
-            }else if(target>arr[mid]){
-                start=mid+1;
-            }else{
-                ans=mid;
-                if(find){
-                    end=mid-1;
+
+    public static int upper(int arr[], int n, int k, boolean flag) {
+        int low = 0, high = n-1, ans = -1;
+
+        while(low<=high){
+            int mid = low +(high - low)/2;
+            if(arr[mid]==k){
+                if(!flag){
+                    low = mid + 1;
+                    ans = mid; 
                 }else{
-                    start=mid+1;
+                    high = mid - 1;
+                    ans = mid;
                 }
+
+            }else if(arr[mid]>k){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
             }
         }
         return ans;
-        
     }
 }
